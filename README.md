@@ -35,8 +35,9 @@ Security/JWT Configuration
 - SECURITY_JWT_EXPIRATION_SECONDS: Token validity period in seconds (default: 36000)
 
 Supabase attachment handling
-- Frontend should upload claim files to Supabase Storage and pass the resulting public URL as attachmentUrl when submitting a claim.
+- Frontend should upload claim files to Supabase Storage and pass the resulting signed or public URL as attachmentUrl when submitting a claim.
 - Backend stores this URL as an audit trail entry (action=ATTACHMENT_ADDED) against the Claim entity for traceability without schema changes.
+- See assets/supabase.md for bucket setup, RLS policies, and env configuration.
 
 API Highlights
 - Policies: POST /api/policies (ADMIN), POST /api/policies/{id}/premium (ADMIN), GET /api/policies, GET /api/policies/type/{type}
