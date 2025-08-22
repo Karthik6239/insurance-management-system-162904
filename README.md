@@ -34,8 +34,21 @@ Security/JWT Configuration
 - SECURITY_JWT_SECRET: Base64-encoded secret used for signing JWTs (required in prod)
 - SECURITY_JWT_EXPIRATION_SECONDS: Token validity period in seconds (default: 36000)
 
+Supabase attachment handling
+- Frontend should upload claim files to Supabase Storage and pass the resulting public URL as attachmentUrl when submitting a claim.
+- Backend stores this URL as an audit trail entry (action=ATTACHMENT_ADDED) against the Claim entity for traceability without schema changes.
+
+API Highlights
+- Policies: POST /api/policies (ADMIN), POST /api/policies/{id}/premium (ADMIN), GET /api/policies, GET /api/policies/type/{type}
+- Customer Policies: POST /api/customer-policies/purchase, POST /api/customer-policies/{id}/cancel, GET /api/customer-policies/customer/{customerId}
+- Claims: POST /api/claims, POST /api/claims/{id}/status (AGENT/ADMIN), GET /api/claims/ref/{reference}, GET /api/claims/customer/{customerId}
+- Payments: POST /api/payments/premium, POST /api/payments/payout (AGENT/ADMIN), GET /api/payments/customer/{customerId}
+- Reports: GET /api/reports/claims (ADMIN), GET /api/reports/premiums (ADMIN)
+
 Quick test
 1) Register a user:
    curl -X POST http://localhost:8080/api/auth/register -H "Content-Type: application/json" -d '{"fullName":"Alice","email":"alice@example.com","password":"secret","roles":["ADMIN"]}'
 2) Use token to call protected endpoint:
    curl http://localhost:8080/api/admin/roles -H "Authorization: Bearer <token>"
+3) Swagger UI:
+   http://localhost:8080/swagger-ui.html
