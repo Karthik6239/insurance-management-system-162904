@@ -29,3 +29,13 @@ Quick start (dev)
 Production notes
 - Set SPRING_PROFILES_ACTIVE=prod and provide MYSQL_URL, MYSQL_USER, MYSQL_PASSWORD explicitly.
 - Schema updates should be handled via migrations or DBA-managed scripts prior to deployment.
+
+Security/JWT Configuration
+- SECURITY_JWT_SECRET: Base64-encoded secret used for signing JWTs (required in prod)
+- SECURITY_JWT_EXPIRATION_SECONDS: Token validity period in seconds (default: 36000)
+
+Quick test
+1) Register a user:
+   curl -X POST http://localhost:8080/api/auth/register -H "Content-Type: application/json" -d '{"fullName":"Alice","email":"alice@example.com","password":"secret","roles":["ADMIN"]}'
+2) Use token to call protected endpoint:
+   curl http://localhost:8080/api/admin/roles -H "Authorization: Bearer <token>"
