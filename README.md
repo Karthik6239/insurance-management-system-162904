@@ -42,6 +42,14 @@ Running locally (dev)
 4) Open Swagger UI at:
    - http://localhost:8080/swagger-ui.html
 
+Preview mode (no external DB)
+- To run in environments without MySQL (e.g., preview CI), use the preview profile which uses in-memory H2:
+  - macOS/Linux: SPRING_PROFILES_ACTIVE=preview ./gradlew bootRun
+  - Windows (PowerShell): $env:SPRING_PROFILES_ACTIVE="preview"; ./gradlew.bat bootRun
+- Swagger UI: http://localhost:8080/swagger-ui.html
+- Optional H2 console: http://localhost:8080/h2-console (JDBC URL: jdbc:h2:mem:imsdb, user: sa, empty password)
+- Note: Data is ephemeral and will reset on restart.
+
 Production notes
 - Set SPRING_PROFILES_ACTIVE=prod and provide explicit MYSQL_URL, MYSQL_USER, MYSQL_PASSWORD.
 - Provide SECURITY_JWT_SECRET and adjust SECURITY_JWT_EXPIRATION_SECONDS as needed.
